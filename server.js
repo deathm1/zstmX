@@ -3,6 +3,9 @@ const colors = require('colors');
 console.clear();
 console.log(" //-----------------------------------KoshurTech zstmX Server-----------------------------------// \n".bgRed.bold);
 
+
+
+
 //imports
 const express = require('express');
 const dotenv = require('dotenv').config({ path: "./configuration/config.env" });
