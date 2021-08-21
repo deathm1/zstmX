@@ -14,7 +14,7 @@ const db = require('./database/database');
 //Intialize express server framework
 console.log(getTime() + " : Launching Express Server Framework...");
 const app = new express();
-
+app.use(express.json());
 
 //Create connection with database
 db();
@@ -22,10 +22,17 @@ db();
 try {
     console.log(getTime() + " : Launching Routes...");
 
-    // Rout
+    // 1
     // POST
     app.use('/', require('./routes/landingPage'));
+
+    // 2
+    // GET
     app.use('/api/getIpInfo', require('./routes/getIpInfo'));
+
+    // 3
+    // GET
+    app.use('/api/uploadDeviceSpecs', require('./routes/uploadDeviceSpecs'));
 
     console.log(getTime() + " : All routes launched successfully.".green.bold);
 }

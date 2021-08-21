@@ -1,17 +1,9 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config({ path: "./configuration/config.env" });
-
-
-
-
-
-
 //Async expression
-
 const createConnectionWithDatabase = async () => {
     try {
         console.log(getTime() + " : Creating Connection with database...");
-
         await mongoose.connect(process.env.DATABASE_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -20,23 +12,20 @@ const createConnectionWithDatabase = async () => {
         }).then(response => {
             //console.log(response);
             console.log(getTime() + " : (PROMISE RESPONSE) Database connection has been established.".green.bold);
-
         }).catch(err => {
             console.log(err);
-            console.log(getTime() + " : (PROMISE RESPONSE) Database connection could not be established.".red.bold);
+            console.log(getTime() + " : (PROMISE RESPONSE) Database connection could not be established, Shutting down server...".red.bold);
+            process.exit(1);
         });
     }
     catch (error) {
-        console.log(getTime() + ' Something went wrong, Could not establish connection with database. Shutting down server.'.bold.red);
+        console.log(getTime() + ' Something went wrong, Could not establish connection with database, Shutting down server...'.bold.red);
         console.log(err.message);
-
         // Exit Process with failure
         process.exit(1);
     }
 };
-
 module.exports = createConnectionWithDatabase;
-
 function getTime() {
     let date_ob = new Date();
     // current date
