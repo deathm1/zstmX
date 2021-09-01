@@ -22,17 +22,18 @@ db();
 try {
     console.log(getTime() + " : Launching Routes...");
 
-    // 1
-    // POST
+    // Route SET 1
     app.use('/', require('./routes/landingPage'));
 
-    // 2
-    // GET
+    // Route SET 2
     app.use('/api/getIpInfo', require('./routes/getIpInfo'));
 
-    // 3
-    // GET
+    // Route SET 3
     app.use('/api/uploadDeviceSpecs', require('./routes/uploadDeviceSpecs'));
+
+
+    // Route SET 4
+    app.use('/api/getDeviceSpecs', require('./routes/getDeviceSpecs'));
 
     console.log(getTime() + " : All routes launched successfully.".green.bold);
 }
