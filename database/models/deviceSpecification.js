@@ -49,6 +49,7 @@ const deviceSpecification = new mongoose.Schema({
         }
     }]
 });
+deviceSpecification.index({ deviceModel: 'text' })
 
 
 function convertTZ(date, tzString) {
