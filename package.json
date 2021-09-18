@@ -1,6 +1,6 @@
 {
   "name": "kt_zstmx_server",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "KoshurTech zstmX REST API",
   "main": "server.js",
   "scripts": {

@@ -175,7 +175,7 @@ router.get('/getProfileById', async (req, res) => {
 
 
 
-//get devices by make and model
+//get devices by make and model ggwp
 
 router.get('/makeModel', async (req, res) => {
     console.clear();
