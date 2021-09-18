@@ -1,0 +1,34 @@
+{
+  "name": "kt_zstmx_server",
+  "version": "0.0.6",
+  "description": "KoshurTech zstmX REST API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "startDev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deathm1/zstmX"
+  },
+  "author": "KoshurTech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deathm1/zstmX/issues"
+  },
+  "homepage": "https://github.com/deathm1/zstmX#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "node-ipinfo": "^2.2.0",
+    "request-ip": "^2.1.3",
+    "unirest": "^0.6.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
