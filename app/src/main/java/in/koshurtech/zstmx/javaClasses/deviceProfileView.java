@@ -7,14 +7,24 @@ public class deviceProfileView {
     private int upVotes;
     private int downVotes;
     private String profileId;
+    private String time;
 
 
-    public deviceProfileView(String deviceMake, String deviceModel, int upVotes,int downVotes, String profileId){
+    public deviceProfileView(String deviceMake, String deviceModel, int upVotes,int downVotes, String profileId, String time){
         this.deviceMake = deviceMake;
         this.deviceModel = deviceModel;
         this.upVotes = upVotes;
         this.downVotes = downVotes;
         this.profileId = profileId;
+        this.time = time;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getProfileId() {
