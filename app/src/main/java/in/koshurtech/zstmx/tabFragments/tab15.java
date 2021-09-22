@@ -311,9 +311,6 @@ public class tab15 extends Fragment {
         System.out.println(limit);
         deviceProfileViewArrayList.clear();
         swipeRefreshLayout.setRefreshing(true);
-
-
-
         HashMap<String,String> headers = new HashMap<>();
         headers.put("Content-Type","application/json");
 
