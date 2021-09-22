@@ -108,6 +108,7 @@ public class deviceProfileAdapter extends RecyclerView.Adapter<deviceProfileAdap
 
 
 
+
         public void setModel(String model) {
             this.model.setText(model);
         }
