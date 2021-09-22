@@ -8,9 +8,13 @@ v0.2.9
 3. Added profile search functionality.
 4. Added 'Load More' functionality. Recycler view can show information ranging from 10, 20, 30, .... n
 5. Fixed recycler view information duplication.
+
+
 v0.2.6
 1. File Manager
 2. Optimized for Android 11.
+
+
 Beta Release
 1. Main activity with tabs and Settings activity with customization options.
 2. Theme adaptation : System Default, Light and Dark Theme.
