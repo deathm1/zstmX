@@ -42,7 +42,7 @@ const dotenv = require('dotenv').config({ path: "./configuration/config.env" });
 // });
 
 
-router.get('/getProfileByText', async (req, res) => {
+router.post('/getProfileByText', async (req, res) => {
     console.clear();
     try {
         const query = req.body.textQuery;
