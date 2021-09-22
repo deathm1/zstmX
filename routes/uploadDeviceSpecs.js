@@ -54,7 +54,7 @@ router.post('/', recaptchaMiddleware, async (req, res) => {
 });
 
 
-router.put('/putUpVote', recaptchaMiddleware, async (req, res) => {
+router.post('/putUpVote', recaptchaMiddleware, async (req, res) => {
 
     try {
 
@@ -126,7 +126,7 @@ router.put('/putUpVote', recaptchaMiddleware, async (req, res) => {
 
 });
 
-router.put('/putDownVote', recaptchaMiddleware, async (req, res) => {
+router.post('/putDownVote', recaptchaMiddleware, async (req, res) => {
 
     try {
 
