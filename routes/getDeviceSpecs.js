@@ -177,7 +177,7 @@ router.get('/getProfileById', async (req, res) => {
 
 //get devices by make and model ggwp
 
-router.get('/makeModel', async (req, res) => {
+router.post('/makeModel', async (req, res) => {
     console.clear();
     console.log(getTime() + ' : Getting all profiles with limit...'.bold);
 
