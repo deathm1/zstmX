@@ -35,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +58,7 @@ public class tab15 extends Fragment {
 
     RecyclerView recyclerView;
     deviceProfileAdapter deviceProfileAdapter;
-    SwipeRefreshLayout swipeRefreshLayout;
+    LinearProgressIndicator linearProgressIndicator;
     ArrayList<deviceProfileView> deviceProfileViewArrayList = new ArrayList<>();
     ArrayList<deviceProfileView> tempDeviceProfileViewArrayList = new ArrayList<>();
     ExtendedFloatingActionButton extendedFloatingActionButton;
@@ -85,7 +86,10 @@ public class tab15 extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                getProfileFromServer(10);
+                if(!isLoading){
+                    isLoading = true;
+                    getProfileFromServer(10);
+                }
 
                 return true;
             }
@@ -132,7 +136,8 @@ public class tab15 extends Fragment {
     }
 
     private void filter(String newText) {
-        swipeRefreshLayout.setRefreshing(true);
+        linearProgressIndicator.setVisibility(View.VISIBLE);
+
 
 
 
@@ -144,14 +149,15 @@ public class tab15 extends Fragment {
         payload.put("textQuery",newText);
 
         JsonObjectRequest jsonObjectRequest =
-                new JsonObjectRequest(Request.Method.GET,
+                new JsonObjectRequest(Request.Method.POST,
                         getString(R.string.getProfileByQueryFormServer),
                         new JSONObject(payload),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 tempDeviceProfileViewArrayList.clear();
-                                swipeRefreshLayout.setRefreshing(false);
+                                linearProgressIndicator.setVisibility(View.INVISIBLE);
+
                                 try {
                                     if(response.getBoolean("success")){
                                         JSONArray results = response.getJSONArray("results");
@@ -188,7 +194,8 @@ public class tab15 extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        swipeRefreshLayout.setRefreshing(false);
+
+                        linearProgressIndicator.setVisibility(View.INVISIBLE);
 
 
                         NetworkResponse networkResponse = error.networkResponse;
@@ -243,16 +250,29 @@ public class tab15 extends Fragment {
 
 
         extendedFloatingActionButton = (ExtendedFloatingActionButton) v.findViewById(R.id.shareDeviceSpecs);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.deviceProfileSRL);
         recyclerView = (RecyclerView) v.findViewById(R.id.allDevicesRecyclerView);
+        linearProgressIndicator = (LinearProgressIndicator) v.findViewById(R.id.infoLoadingFromServer);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         deviceProfileAdapter = new deviceProfileAdapter(deviceProfileViewArrayList,getActivity().getApplicationContext(),getActivity());
         recyclerView.setAdapter(deviceProfileAdapter);
         getProfileFromServer(limit);
 
+        extendedFloatingActionButton = (ExtendedFloatingActionButton) v.findViewById(R.id.shareDeviceSpecs);
+        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(extendedFloatingActionButton.getText().equals("Load More")){
+                    limit = limit + 10;
+                    getProfileFromServer(limit);
+                }
+                else if(extendedFloatingActionButton.getText().equals("Upload Specs")){
 
-        swipeRefreshLayout.setEnabled(false);
+                }
+            }
+        });
+
+
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -308,9 +328,10 @@ public class tab15 extends Fragment {
 
 
     private void getProfileFromServer(int limit){
-        System.out.println(limit);
+        isLoading = true;
+        linearProgressIndicator.setVisibility(View.VISIBLE);
         deviceProfileViewArrayList.clear();
-        swipeRefreshLayout.setRefreshing(true);
+
         HashMap<String,String> headers = new HashMap<>();
         headers.put("Content-Type","application/json");
 
@@ -318,14 +339,14 @@ public class tab15 extends Fragment {
         payload.put("limit",limit);
 
         JsonObjectRequest jsonObjectRequest =
-                new JsonObjectRequest(Request.Method.GET,
+                new JsonObjectRequest(Request.Method.POST,
                         getString(R.string.getProfileFormServer),
                         new JSONObject(payload),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 isLoading = false;
-                                swipeRefreshLayout.setRefreshing(false);
+                                linearProgressIndicator.setVisibility(View.INVISIBLE);
                                 try {
                                     if(response.getBoolean("success")){
                                         JSONArray results = response.getJSONArray("results");
@@ -357,7 +378,8 @@ public class tab15 extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         isLoading = false;
-                        swipeRefreshLayout.setRefreshing(false);
+                        linearProgressIndicator.setVisibility(View.INVISIBLE);
+
 
                         NetworkResponse networkResponse = error.networkResponse;
                         if(error instanceof ServerError && networkResponse!=null){
