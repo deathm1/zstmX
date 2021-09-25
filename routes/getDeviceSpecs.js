@@ -55,25 +55,26 @@ router.post('/getProfileByText', async (req, res) => {
 
             const queryArray = await Device.aggregate(
                 [
-                    { $addFields: { 
-                            resultObject: { 
-                                $regexFind: { 
-                                    input: "$deviceModel", 
-                                    regex: query 
-                                } 
-                            } 
-                        } 
+                    {
+                        $addFields: {
+                            resultObject: {
+                                $regexFind: {
+                                    input: "$deviceModel",
+                                    regex: query
+                                }
+                            }
+                        }
                     },
                     {
-                        $project:{
-                            serverTime:1, 
-                            entryId:1, 
-                            upVotes:1, 
-                            downVotes:1, 
-                            deviceModel:1,
-                            resultObject:1,
-                            deviceMake:1,
-                            _id:0
+                        $project: {
+                            serverTime: 1,
+                            entryId: 1,
+                            upVotes: 1,
+                            downVotes: 1,
+                            deviceModel: 1,
+                            resultObject: 1,
+                            deviceMake: 1,
+                            _id: 0
                         }
                     }
                 ])
@@ -82,18 +83,18 @@ router.post('/getProfileByText', async (req, res) => {
 
                     const resArr = response;
                     const saveArr = [];
-                    for(var i=0; i<resArr.length; i++){
+                    for (var i = 0; i < resArr.length; i++) {
                         var obj = {
-                            "serverTime":resArr[i].serverTime,
-                            "upVotes":resArr[i].upVotes.length,
-                            "downVotes":resArr[i].downVotes.length,
-                            "entryId":resArr[i].entryId,
-                            "deviceModel":resArr[i].deviceModel,
-                            "deviceMake":resArr[i].deviceMake,
-                            "resultObject":resArr[i].resultObject
+                            "serverTime": resArr[i].serverTime,
+                            "upVotes": resArr[i].upVotes.length,
+                            "downVotes": resArr[i].downVotes.length,
+                            "entryId": resArr[i].entryId,
+                            "deviceModel": resArr[i].deviceModel,
+                            "deviceMake": resArr[i].deviceMake,
+                            "resultObject": resArr[i].resultObject
                         }
                         saveArr.push(obj);
-                        
+
                     }
                     res.status(200).json({
                         success: true,
@@ -124,7 +125,7 @@ router.post('/getProfileByText', async (req, res) => {
 
 
 
-router.get('/getProfileById', async (req, res) => {
+router.post('/getProfileById', async (req, res) => {
     console.clear();
     console.log(getTime() + ' : Getting all profile by entry ID...'.bold);
     try {
@@ -137,29 +138,29 @@ router.get('/getProfileById', async (req, res) => {
 
 
 
-            const response = await Device.findOne({entryId:id})
+            const response = await Device.findOne({ entryId: id })
 
-            if(response!=null){
+            if (response != null) {
                 console.log(getTime() + ' : 200 : OK : Results were fetched successfully.'.green.bold);
-                    res.status(200).json({
-                        success: true,
-                        "serverTime":response.serverTime,
-                        "upVotes":response.upVotes.length,
-                        "downVotes":response.downVotes.length,
-                        "entryId":response.entryId,
-                        "deviceModel":response.deviceModel,
-                        "deviceMake":response.deviceMake,
-                        "deviceInfo":response.deviceInfo
-                    });
-                }
-            else{
+                res.status(200).json({
+                    success: true,
+                    "serverTime": response.serverTime,
+                    "upVotes": response.upVotes.length,
+                    "downVotes": response.downVotes.length,
+                    "entryId": response.entryId,
+                    "deviceModel": response.deviceModel,
+                    "deviceMake": response.deviceMake,
+                    "deviceInfo": response.deviceInfo
+                });
+            }
+            else {
                 console.log(getTime() + ' : 404 : NOT FOUND : Profile not found.'.green.bold);
                 res.status(404).json({
                     success: false,
                     status: 'Profile not found.'
                 });
             }
-            
+
         }
 
     }
@@ -186,39 +187,39 @@ router.post('/makeModel', async (req, res) => {
         if (limit == null || limit == 0) {
             limit = 10;
         }
-        const queryArray = await Device.find({}, {serverTime:1, entryId:1, upVotes:1, downVotes:1, deviceModel:1, deviceMake:1,_id:0}).limit(limit)
-                .then(response => {
-                    console.log(getTime() + ' : 200 : OK : Results were fetched successfully.'.green.bold);
+        const queryArray = await Device.find({}, { serverTime: 1, entryId: 1, upVotes: 1, downVotes: 1, deviceModel: 1, deviceMake: 1, _id: 0 }).limit(limit)
+            .then(response => {
+                console.log(getTime() + ' : 200 : OK : Results were fetched successfully.'.green.bold);
 
 
-                    const resArr = response;
-                    const saveArr = [];
-                    for(var i=0; i<resArr.length; i++){
-                        var obj = {
-                            "serverTime":resArr[i].serverTime,
-                            "upVotes":resArr[i].upVotes.length,
-                            "downVotes":resArr[i].downVotes.length,
-                            "entryId":resArr[i].entryId,
-                            "deviceModel":resArr[i].deviceModel,
-                            "deviceMake":resArr[i].deviceMake
-                        }
-                        saveArr.push(obj);
-                        
+                const resArr = response;
+                const saveArr = [];
+                for (var i = 0; i < resArr.length; i++) {
+                    var obj = {
+                        "serverTime": resArr[i].serverTime,
+                        "upVotes": resArr[i].upVotes.length,
+                        "downVotes": resArr[i].downVotes.length,
+                        "entryId": resArr[i].entryId,
+                        "deviceModel": resArr[i].deviceModel,
+                        "deviceMake": resArr[i].deviceMake
                     }
+                    saveArr.push(obj);
 
-                    res.status(200).json({
-                        success: true,
-                        results: saveArr
-                    });
-                })
-                .catch(error => {
-                    console.log(error)
-                    console.log(getTime() + ' : 500 : SERVER ERROR : Something went wrong.'.green.bold);
-                    res.status(500).json({
-                        success: false,
-                        status: 'Something went wrong.'
-                    });
+                }
+
+                res.status(200).json({
+                    success: true,
+                    results: saveArr
                 });
+            })
+            .catch(error => {
+                console.log(error)
+                console.log(getTime() + ' : 500 : SERVER ERROR : Something went wrong.'.green.bold);
+                res.status(500).json({
+                    success: false,
+                    status: 'Something went wrong.'
+                });
+            });
     }
     catch (error) {
         console.log(error);
