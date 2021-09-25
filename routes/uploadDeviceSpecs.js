@@ -155,7 +155,6 @@ router.post("/putUpVote", recaptchaMiddleware, async (req, res) => {
                             isUpvoted = true;
                         }
                     }
-
                     if (isUpvoted) {
                         console.log(getTime() + " : 200 : OK : Already Upvoted".green.bold);
                         res
@@ -168,9 +167,9 @@ router.post("/putUpVote", recaptchaMiddleware, async (req, res) => {
                             deviceId: deviceId,
                         };
                         const post = await Device.findOne({ entryId: eId });
-                        post.upVotes.unshift(payload);
-                        await post.save();
-
+                        var array = post.upVotes;
+                        array.push(payload);
+                        const post2 = await Device.findOne({ entryId: eId }).updateMany({ "upVotes": array });
                         for (var i = 0; i < getDownvoteArray.length; i++) {
                             if (getDownvoteArray[i].deviceId == deviceId) {
                                 await Device.updateMany(
@@ -260,10 +259,15 @@ router.post("/putDownVote", recaptchaMiddleware, async (req, res) => {
                         };
 
                         const post = await Device.findOne({ entryId: eId });
-                        post.downVotes.unshift(payload);
-                        await post.save();
+                        var array = post.downVotes;
+                        array.push(payload);
+
+                        const post2 = await Device.findOne({ entryId: eId }).updateMany({ "downVotes": array });
+
+                        //await post.save();
                         for (var i = 0; i < getUpvoteArray.length; i++) {
                             if (getUpvoteArray[i].deviceId == deviceId) {
+                                console.log("got");
                                 await Device.updateMany(
                                     { entryId: eId },
                                     { $pull: { upVotes: { _id: getUpvoteArray[i]._id } } }
