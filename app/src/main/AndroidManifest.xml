@@ -24,9 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZstmX">
         <activity
-            android:label="Device Profile"
             android:parentActivityName=".MainActivity"
-            android:name=".activities.showDeviceProfile"
+            android:label="Profile Showcase"
+            android:name=".activities.profileShowcase"
             android:exported="true" />
         <activity
             android:name=".activities.rawView"

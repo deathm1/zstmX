@@ -102,13 +102,6 @@ public class tab6 extends Fragment {
 
 
 
-
-
-
-
-
-
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
