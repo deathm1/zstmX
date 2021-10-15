@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/drawable/circ.xml" value="0.284375" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/drawable/ic_baseline_data_usage_24.xml" value="0.28984375" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/drawable/ic_baseline_keyboard_arrow_down_24.xml" value="0.315625" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/drawable/ic_baseline_notes_24.xml" value="0.1921875" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/drawable/ic_outline_save_24.xml" value="0.5" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_benchmark_results.xml" value="0.3515625" />
@@ -12,15 +13,18 @@
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_profile_showcase.xml" value="0.33" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_raw_view.xml" value="0.23203125" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_result_data_view.xml" value="0.33" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_review_information.xml" value="0.3078125" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_sensor.xml" value="0.4" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_show_device_profile.xml" value="0.27890625" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_show_reports.xml" value="0.1875" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_splash_screen.xml" value="0.34140625" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_text_view.xml" value="0.5" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_upload_specs.xml" value="0.3844086021505376" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/activity_view_all_reports.xml" value="0.1609375" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/device_card.xml" value="0.5" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/footer.xml" value="0.17578125" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/fragment_app_info.xml" value="0.5634743875278396" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/fragment_cpu_information.xml" value="0.296875" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/fragment_generate_report.xml" value="0.326171875" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/fragment_tab1.xml" value="0.4" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/fragment_tab10.xml" value="0.19453125" />
@@ -40,8 +44,12 @@
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/meter_view.xml" value="0.3844086021505376" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/recycler_info_view.xml" value="0.6" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/results_view.xml" value="0.6" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/select_deselect_property.xml" value="0.67" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/sensor_select.xml" value="0.536" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/settings_activity.xml" value="0.28515625" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/showcase_properties.xml" value="0.9" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/showcase_rv.xml" value="0.67" />
+        <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/layout/upload_info_layout.xml" value="0.67" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/menu/cpu_menu.xml" value="0.1" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/menu/on_long_click_rv.xml" value="0.234375" />
         <entry key="..\:/koshur_tech/AndroidProjects/zstmx/app/src/main/res/menu/options_menu.xml" value="0.23203125" />

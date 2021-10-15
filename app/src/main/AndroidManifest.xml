@@ -24,10 +24,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZstmX">
         <activity
-            android:parentActivityName=".MainActivity"
-            android:label="Profile Showcase"
-            android:name=".activities.profileShowcase"
+            android:label="Review"
+            android:parentActivityName=".activities.uploadSpecs"
+            android:name=".activities.reviewInformation"
             android:exported="true" />
+        <activity
+            android:name=".activities.uploadSpecs"
+            android:exported="true"
+            android:label="Upload Specs"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".activities.profileShowcase"
+            android:exported="true"
+            android:label="Profile Showcase"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".activities.rawView"
             android:exported="true"

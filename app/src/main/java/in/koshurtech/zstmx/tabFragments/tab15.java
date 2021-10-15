@@ -1,6 +1,7 @@
 package in.koshurtech.zstmx.tabFragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -48,6 +51,7 @@ import java.util.Map;
 
 import in.koshurtech.zstmx.MainActivity;
 import in.koshurtech.zstmx.R;
+import in.koshurtech.zstmx.activities.uploadSpecs;
 import in.koshurtech.zstmx.adapters.deviceProfileAdapter;
 import in.koshurtech.zstmx.adapters.recyclerInfoViewAdapter;
 import in.koshurtech.zstmx.javaClasses.deviceProfileView;
@@ -121,9 +125,8 @@ public class tab15 extends Fragment {
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                deviceProfileViewArrayList.clear();
-                deviceProfileViewArrayList.addAll(tempDeviceProfileViewArrayList);
-                deviceProfileAdapter.updateList(deviceProfileViewArrayList);
+
+                getProfileFromServer(limit);
                 return true;
             }
         });
@@ -158,23 +161,32 @@ public class tab15 extends Fragment {
                                 tempDeviceProfileViewArrayList.clear();
                                 linearProgressIndicator.setVisibility(View.INVISIBLE);
 
+
                                 try {
+
                                     if(response.getBoolean("success")){
                                         JSONArray results = response.getJSONArray("results");
 
 
                                         for(int i=0; i<results.length(); i++){
 
-                                            if(!(response.getJSONObject("resultObject") ==null)){
-                                                JSONObject profile = results.getJSONObject(i);
 
-                                                deviceProfileViewArrayList.add(new deviceProfileView(
-                                                        profile.getString("deviceMake"),
-                                                        profile.getString("deviceModel"),
-                                                        profile.getInt("upVotes"),
-                                                        profile.getInt("downVotes"),
-                                                        profile.getString("entryId"),
-                                                        profile.getString("serverTime")));
+
+                                            try {
+                                                if(!(results.getJSONObject(i).getJSONObject("resultObject") ==null)){
+                                                    JSONObject profile = results.getJSONObject(i);
+
+                                                    deviceProfileViewArrayList.add(new deviceProfileView(
+                                                            profile.getString("deviceMake"),
+                                                            profile.getString("deviceModel"),
+                                                            profile.getInt("upVotes"),
+                                                            profile.getInt("downVotes"),
+                                                            profile.getString("entryId"),
+                                                            profile.getString("serverTime")));
+                                                }
+                                            }
+                                            catch (JSONException e){
+                                                e.printStackTrace();
                                             }
 
 
@@ -267,7 +279,7 @@ public class tab15 extends Fragment {
                     getProfileFromServer(limit);
                 }
                 else if(extendedFloatingActionButton.getText().equals("Upload Specs")){
-
+                    startActivity(new Intent(getActivity().getApplicationContext(),uploadSpecs.class));
                 }
             }
         });
