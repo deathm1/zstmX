@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -42,21 +43,21 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import in.koshurtech.zstmx.R;
 import in.koshurtech.zstmx.adapters.recyclerInfoViewAdapter;
+import in.koshurtech.zstmx.adapters.showcaseProfileRV;
+import in.koshurtech.zstmx.adapters.uploadInfoRV;
 import in.koshurtech.zstmx.javaClasses.recyclerInfoView;
+import in.koshurtech.zstmx.javaClasses.uploadInfoViewHolder;
 
 public class profileShowcase extends AppCompatActivity {
 
     JSONObject jsonObject;
     LinearProgressIndicator linearProgressIndicator;
     RecyclerView recyclerView;
-    recyclerInfoViewAdapter recyclerInfoViewAdapter;
-    ArrayList<recyclerInfoView> recyclerInfoViewArrayList = new ArrayList<>();
-    ExtendedFloatingActionButton extendedFloatingActionButton;
-    ScrollView scrollView;
-    TextView deviceMake2;
-    TextView deviceModel2;
-    MaterialButton upVoteButton;
-    MaterialButton downVoteButton;
+    showcaseProfileRV showcaseProfileRV;
+    ArrayList<uploadInfoViewHolder> uploadInfoViewHolderArrayList = new ArrayList<>();
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,52 +82,27 @@ public class profileShowcase extends AppCompatActivity {
 
         getSupportActionBar().setElevation(0);
 
-        deviceMake2 = (TextView) findViewById(R.id.deviceModelShow);
-        deviceModel2 = (TextView) findViewById(R.id.deviceMakeShow);
+
+
+
+
         recyclerView = (RecyclerView) findViewById(R.id.deviceParametersRecyclerView);
         linearProgressIndicator = (LinearProgressIndicator) findViewById(R.id.showProfileLPI);
         linearProgressIndicator.setVisibility(View.VISIBLE);
-        extendedFloatingActionButton = (ExtendedFloatingActionButton) findViewById(R.id.goUp);
-        scrollView = (ScrollView) findViewById(R.id.scrollViewbelowlpi);
-        upVoteButton = (MaterialButton) findViewById(R.id.upVoteButton2);
-        downVoteButton = (MaterialButton) findViewById(R.id.downVoteButton2);
 
 
-        upVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
-
-        downVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
+        showcaseProfileRV = new showcaseProfileRV(uploadInfoViewHolderArrayList,profileShowcase.this,getApplicationContext());
 
-        recyclerInfoViewAdapter = new recyclerInfoViewAdapter(recyclerInfoViewArrayList,getApplicationContext(),profileShowcase.this);
+        recyclerView.setAdapter(showcaseProfileRV);
+//        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+//                Settings.Secure.ANDROID_ID);
+        getProfileData(getIntent().getStringExtra("id"));
 
-
-
-        scrollView.setSmoothScrollingEnabled(true);
-        scrollView.setVisibility(View.INVISIBLE);
-
-        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
-        getProfileData(id);
 
 
 
@@ -140,7 +116,7 @@ public class profileShowcase extends AppCompatActivity {
     private void getProfileData(String id){
         isLoading = true;
         linearProgressIndicator.setVisibility(View.VISIBLE);
-        recyclerInfoViewArrayList.clear();
+        uploadInfoViewHolderArrayList.clear();
 
         HashMap<String,String> headers = new HashMap<>();
         headers.put("Content-Type","application/json");
@@ -160,13 +136,12 @@ public class profileShowcase extends AppCompatActivity {
                                 linearProgressIndicator.setVisibility(View.INVISIBLE);
                                 try {
                                     jsonObject = response;
-                                    deviceMake2.setText(response.getString("deviceMake"));
-                                    deviceModel2.setText(response.getString("deviceModel"));
-
-                                    JSONArray jsonArray = response.getJSONArray("deviceInfo");
 
 
-                                    recyclerView.setAdapter(recyclerInfoViewAdapter);
+                                    String arr =response.getString("deviceInfo");
+
+                                    JSONArray jsonArray = new JSONArray(arr);
+
 
 
 
@@ -184,14 +159,16 @@ public class profileShowcase extends AppCompatActivity {
 
                                         }
 
-                                        recyclerInfoViewArrayList.add(new recyclerInfoView(ssrr.toString(),jsonObject.getString("pro")));
+                                        uploadInfoViewHolderArrayList.add(new uploadInfoViewHolder(jsonObject.getString("prop"),jsonObject.getString("data")));
+
                                     }
 
-                                    recyclerInfoViewAdapter.updateList(recyclerInfoViewArrayList);
+
+
+                                    showcaseProfileRV.notifyDataSetChanged();
 
 
 
-                                    scrollView.setVisibility(View.VISIBLE);
                                 }
                                 catch (Exception e){
                                     e.printStackTrace();
