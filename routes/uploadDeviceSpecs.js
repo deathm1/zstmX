@@ -82,7 +82,7 @@ router.post("/", recaptchaMiddleware, async (req, res) => {
                 else {
                     await Device.findOne({ deviceId: deviceId }).updateMany({
                         deviceInfo: deviceInfo,
-                        deviceMake: "updatedMake"
+                        deviceMake: deviceMake,
                     }).then(response => {
                         console.log(getTime() + " : 200 : OK : This device has already made a device specification entry, Updating with new specifications.".green.bold);
                         res
